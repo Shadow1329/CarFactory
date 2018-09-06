@@ -1,4 +1,4 @@
-package com.test.carfactory.ui.factory
+package com.test.carfactory.presentation.factory
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

@@ -1,4 +1,4 @@
-package com.test.carfactory.ui.main
+package com.test.carfactory.presentation.main
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter

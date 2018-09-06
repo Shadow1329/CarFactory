@@ -1,4 +1,4 @@
-package com.test.carfactory.ui.main
+package com.test.carfactory.presentation.main
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -11,7 +11,7 @@ import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.test.carfactory.R
-import com.test.carfactory.ui.factory.FactoryFragment
+import com.test.carfactory.presentation.factory.FactoryFragment
 
 class MainActivity : MvpAppCompatActivity(), MainView, NavigationView.OnNavigationItemSelectedListener {
     @InjectPresenter

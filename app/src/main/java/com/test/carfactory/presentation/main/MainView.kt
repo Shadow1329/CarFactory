@@ -1,4 +1,4 @@
-package com.test.carfactory.ui.main
+package com.test.carfactory.presentation.main
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
