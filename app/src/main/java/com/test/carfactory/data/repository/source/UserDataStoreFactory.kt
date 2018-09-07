@@ -1,11 +1,11 @@
 package com.test.carfactory.data.repository.source
 
-import com.test.carfactory.data.db.UserDB
+import com.test.carfactory.data.cache.UserCache
 
-class UserDataStoreFactory(userDB: UserDB) {
-    private val mUserDB = userDB;
+class UserDataStoreFactory(userCache: UserCache) {
+    private val mUserCache = userCache;
 
     fun create(): UserDataStore {
-        return UserLocalDataStore(mUserDB)
+        return UserLocalDataStore(mUserCache)
     }
 }

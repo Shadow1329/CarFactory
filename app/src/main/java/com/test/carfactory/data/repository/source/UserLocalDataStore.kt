@@ -1,13 +1,17 @@
 package com.test.carfactory.data.repository.source
 
-import com.test.carfactory.data.db.UserDB
+import com.test.carfactory.data.cache.UserCache
 import com.test.carfactory.data.model.UserEntity
-import io.reactivex.Observable
+import io.reactivex.Single
 
-class UserLocalDataStore(userDB: UserDB): UserDataStore {
-    private val mUserDB = userDB
+class UserLocalDataStore(userCache: UserCache): UserDataStore {
+    private val mUserCache = userCache
 
-    override fun getUsers(): Observable<List<UserEntity>> {
-        return mUserDB.get()
+    override fun getUserByName(name: String): Single<UserEntity> {
+        return mUserCache.getUserByName(name)
+    }
+
+    override fun getAllUsers(): Single<List<UserEntity>> {
+        return mUserCache.getAllUsers()
     }
 }

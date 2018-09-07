@@ -2,7 +2,7 @@ package com.test.carfactory.presentation.login
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.test.carfactory.data.db.UserDBImpl
+import com.test.carfactory.data.cache.UserCacheImpl
 import com.test.carfactory.data.model.mapper.UserMapper
 import com.test.carfactory.data.repository.UserDataRepository
 import com.test.carfactory.data.repository.source.UserDataStoreFactory
@@ -14,8 +14,8 @@ import com.test.carfactory.domain.model.User
 class LoginPresenter : MvpPresenter<LoginView>() {
 
     private val mUserMapper = UserMapper()
-    private val mUserDB = UserDBImpl()
-    private val mUserDataStoreFactory = UserDataStoreFactory(mUserDB)
+    private val mUserCache = UserCacheImpl()
+    private val mUserDataStoreFactory = UserDataStoreFactory(mUserCache)
     private val mUserDataRepository = UserDataRepository(mUserDataStoreFactory, mUserMapper);
     private val mLoginCheck = LoginCheck(mUserDataRepository)
 
@@ -24,7 +24,7 @@ class LoginPresenter : MvpPresenter<LoginView>() {
         mLoginCheck.execute(LoginCheckObserver(), Pair(username, password));
     }
 
-    inner class LoginCheckObserver: DefaultObserver<User?>() {
+    inner class LoginCheckObserver: DefaultObserver<User>() {
 
         override fun onComplete() {
             viewState.onShowProgress(false)
@@ -37,10 +37,8 @@ class LoginPresenter : MvpPresenter<LoginView>() {
             }
         }
 
-        override fun onNext(user: User?) {
-            user?.let {
-                viewState.onStartMain()
-            }
+        override fun onNext(item: User) {
+            viewState.onStartMain()
         }
     }
 }

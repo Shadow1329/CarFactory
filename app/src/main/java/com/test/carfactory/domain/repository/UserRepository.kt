@@ -1,8 +1,9 @@
 package com.test.carfactory.domain.repository
 
 import com.test.carfactory.domain.model.User
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface UserRepository {
-    fun getUsers(): Observable<List<User>>
+    fun getUserByName(name: String): Single<User>
+    fun getAllUsers(): Single<List<User>>
 }
