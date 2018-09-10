@@ -14,10 +14,14 @@ class UserCacheImpl: UserCache {
     }
 
     override fun getUserByName(name: String): Single<UserEntity> {
-        val realm = Realm.getDefaultInstance()
-        val userEntities: UserEntity  = realm.copyFromRealm(realm.where(UserEntity::class.java).equalTo("mName", name).findFirst())!!
-        realm.close()
-        return Single.just(userEntities)
+        try {
+            val realm = Realm.getDefaultInstance()
+            val userEntities: UserEntity  = realm.copyFromRealm(realm.where(UserEntity::class.java).equalTo("mName", name).findFirst())!!
+            realm.close()
+            return Single.just(userEntities)
+        } catch (exception: IllegalArgumentException) {
+            return Single.error(exception)
+        }
     }
 
     override fun getAllUsers(): Single<List<UserEntity>> {
