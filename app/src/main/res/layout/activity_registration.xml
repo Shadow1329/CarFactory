@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_dark"
-    tools:context=".presentation.login.LoginActivity">
+    tools:context=".presentation.registration.RegistrationActivity">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/loginCard"
+        android:id="@+id/registrationCard"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@android:color/background_light"
@@ -30,19 +30,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/loginLabel"
+                android:id="@+id/registrationLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Car Factory"
+                android:text="Create new user"
                 android:textColor="@android:color/background_dark"
-                android:textSize="32sp"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/loginUsername"
+                android:id="@+id/registrationUsername"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="18dp"
@@ -51,10 +51,10 @@
                 android:gravity="center"
                 android:hint="username"
                 android:inputType="textPersonName"
-                app:layout_constraintTop_toBottomOf="@+id/loginLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/registrationLabel" />
 
             <EditText
-                android:id="@+id/loginPassword"
+                android:id="@+id/registrationPassword"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
@@ -63,35 +63,35 @@
                 android:gravity="center"
                 android:hint="password"
                 android:inputType="textPassword"
-                app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/registrationUsername" />
 
             <Button
-                android:id="@+id/loginOkButton"
+                android:id="@+id/registrationCreateButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/button_full"
                 android:soundEffectsEnabled="false"
-                android:text="login"
+                android:text="Create"
                 android:textColor="@android:color/background_light"
-                app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/registrationPassword" />
 
             <Button
-                android:id="@+id/loginRegistrationButton"
+                android:id="@+id/registrationCancelButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/button_border"
                 android:soundEffectsEnabled="false"
-                android:text="Sign up"
+                android:text="Cancel"
                 android:textColor="@android:color/holo_blue_dark"
-                app:layout_constraintTop_toBottomOf="@+id/loginOkButton" />
+                app:layout_constraintTop_toBottomOf="@+id/registrationCreateButton" />
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/loginProgress"
+        android:id="@+id/registrationProgress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorProgressTransparent"

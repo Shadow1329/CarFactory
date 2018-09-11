@@ -13,11 +13,11 @@
         <activity android:name=".presentation.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.main.MainActivity"/>
+        <activity android:name=".presentation.registration.RegistrationActivity" />
+        <activity android:name=".presentation.main.MainActivity" />
     </application>
 
 </manifest>

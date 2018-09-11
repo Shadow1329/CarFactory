@@ -10,6 +10,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.test.carfactory.R
 import com.test.carfactory.presentation.main.MainActivity
+import com.test.carfactory.presentation.registration.RegistrationActivity
 
 class LoginActivity : MvpAppCompatActivity(), LoginView {
     @InjectPresenter
@@ -21,17 +22,21 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
         setupUI()
     }
 
     private fun setupUI() {
+        setContentView(R.layout.activity_login)
         mLoginUsername = findViewById(R.id.loginUsername)
         mLoginPassword = findViewById(R.id.loginPassword)
         mLoginProgress = findViewById(R.id.loginProgress)
-        val loginButton: Button = findViewById(R.id.loginButton)
-        loginButton.setOnClickListener {
+        val loginOkButton: Button = findViewById(R.id.loginOkButton)
+        loginOkButton.setOnClickListener {
             mLoginPresenter.onLoginClick(mLoginUsername.text.toString(), mLoginPassword.text.toString())
+        }
+        val loginRegistrationButton: Button = findViewById(R.id.loginRegistrationButton)
+        loginRegistrationButton.setOnClickListener {
+            mLoginPresenter.onRegistrationClick()
         }
     }
 
@@ -39,6 +44,11 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onStartRegistration() {
+        val intent = Intent(this, RegistrationActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onShowError(error: String) {

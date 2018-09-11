@@ -1,14 +1,11 @@
-package com.test.carfactory.domain.interactor
+package com.test.carfactory.domain.interactor.base
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-abstract class UseCase<T, Param> {
-    private val mDisposables = CompositeDisposable()
+abstract class ObservableUseCase<T,Param> : UseCase() {
 
     abstract fun buildUseCaseObservable(param: Param): Observable<T>
 
@@ -18,15 +15,5 @@ abstract class UseCase<T, Param> {
                 .observeOn(AndroidSchedulers.mainThread())
 
         addDisposable(observable.subscribeWith(observer))
-    }
-
-    fun dispose() {
-        if (!mDisposables.isDisposed) {
-            mDisposables.dispose()
-        }
-    }
-
-    private fun addDisposable(disposable: Disposable) {
-        mDisposables.add(disposable)
     }
 }
