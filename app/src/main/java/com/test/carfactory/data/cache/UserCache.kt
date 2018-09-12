@@ -8,5 +8,4 @@ interface UserCache {
     fun putUser(name: String, password: String): Completable
     fun getUserByName(name: String): Single<UserEntity>
     fun getAllUsers(): Single<List<UserEntity>>
-    fun clear()
 }

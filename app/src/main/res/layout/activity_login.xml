@@ -72,7 +72,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/button_full"
                 android:soundEffectsEnabled="false"
-                android:text="login"
+                android:text="Sign in"
                 android:textColor="@android:color/background_light"
                 app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
 

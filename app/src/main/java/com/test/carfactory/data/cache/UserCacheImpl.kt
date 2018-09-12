@@ -10,42 +10,41 @@ class UserCacheImpl: UserCache {
         try {
             val realm = Realm.getDefaultInstance()
 
-            val userEntity: UserEntity = realm.createObject(UserEntity::class.java)
-            userEntity.mName = name
+            val userEntity: UserEntity = realm.createObject(UserEntity::class.java, name)
             userEntity.mPassword = password
 
             realm.beginTransaction()
             realm.copyToRealmOrUpdate(userEntity)
             realm.commitTransaction()
             realm.close()
-
-            return Completable.complete()
         } catch (e: Throwable) {
             return Completable.error(e)
         }
+        return Completable.complete()
     }
 
     override fun getUserByName(name: String): Single<UserEntity> {
+        val userEntity: UserEntity
         try {
             val realm = Realm.getDefaultInstance()
-            val userEntity: UserEntity  = realm.copyFromRealm(realm.where(UserEntity::class.java).equalTo("mName", name).findFirst())!!
+            val realmResult: UserEntity = realm.where(UserEntity::class.java).equalTo("mName", name).findFirst()!!
+            userEntity = realm.copyFromRealm(realmResult)
             realm.close()
-            return Single.just(userEntity)
         } catch (e: Throwable) {
-            return Single.error(e)
+            return Single.error(Throwable("User not found"))
         }
+        return Single.just(userEntity)
     }
 
     override fun getAllUsers(): Single<List<UserEntity>> {
-        val realm = Realm.getDefaultInstance()
-        val userEntities: List<UserEntity>  = realm.copyFromRealm(realm.where(UserEntity::class.java).findAll())
-        realm.close()
+        val userEntities: List<UserEntity>
+        try {
+            val realm = Realm.getDefaultInstance()
+            userEntities = realm.copyFromRealm(realm.where(UserEntity::class.java).findAll())
+            realm.close()
+        } catch (e: Throwable) {
+            return Single.error(e)
+        }
         return Single.just(userEntities)
-    }
-
-    override fun clear() {
-        val realm = Realm.getDefaultInstance()
-        realm.delete(UserEntity::class.java)
-        realm.close()
     }
 }

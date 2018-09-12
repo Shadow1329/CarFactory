@@ -23,10 +23,6 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
         mRegistration.execute(RegistrationObserver(), Pair(username, password))
     }
 
-    fun onCancelClick() {
-        viewState.onBack()
-    }
-
     inner class RegistrationObserver: DisposableCompletableObserver() {
 
         override fun onComplete() {

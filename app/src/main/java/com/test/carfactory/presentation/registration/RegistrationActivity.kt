@@ -32,10 +32,6 @@ class RegistrationActivity : MvpAppCompatActivity(), RegistrationView {
         registrationCreateButton.setOnClickListener {
             mRegistrationPresenter.onCreateClick(mRegistrationUsername.text.toString(), mRegistrationPassword.text.toString())
         }
-        val registrationCancelButton: Button = findViewById(R.id.registrationCancelButton)
-        registrationCancelButton.setOnClickListener {
-            mRegistrationPresenter.onCancelClick()
-        }
     }
 
     override fun onBack() {
