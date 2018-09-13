@@ -18,13 +18,17 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
     private val mUserDataRepository = UserDataRepository(mUserDataStoreFactory, mUserMapper)
     private val mRegistration = Registration(mUserDataRepository)
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mRegistration.dispose()
+    }
+
     fun onCreateClick(username: String, password: String) {
         viewState.onShowProgress(true)
         mRegistration.execute(RegistrationObserver(), Pair(username, password))
     }
 
     inner class RegistrationObserver: DisposableCompletableObserver() {
-
         override fun onComplete() {
             viewState.onShowProgress(false)
             viewState.onShowMessage("Successfully created")

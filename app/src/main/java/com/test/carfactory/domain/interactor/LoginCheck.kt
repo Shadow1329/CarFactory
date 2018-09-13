@@ -1,14 +1,16 @@
 package com.test.carfactory.domain.interactor
 
-import com.test.carfactory.domain.interactor.base.SingleUseCase
-import com.test.carfactory.domain.model.User
+import com.test.carfactory.domain.interactor.base.CompletableUseCase
 import com.test.carfactory.domain.repository.UserRepository
-import io.reactivex.Single
+import io.reactivex.Completable
 
-class LoginCheck(userRepository: UserRepository): SingleUseCase<User, Pair<String, String>>() {
+class LoginCheck(userRepository: UserRepository): CompletableUseCase<Pair<String, String>>() {
     private val mUserRepository = userRepository
 
-    override fun buildUseCaseSingle(param: Pair<String,String>): Single<User> {
-        return mUserRepository.getUserByName(param.first)
+    override fun buildUseCaseCompletable(param: Pair<String,String>): Completable {
+        return mUserRepository.getUserByName(param.first).doOnSuccess {
+            if(it.mPassword != param.second)
+                throw Throwable("Wrong password")
+        }.toCompletable()
     }
 }

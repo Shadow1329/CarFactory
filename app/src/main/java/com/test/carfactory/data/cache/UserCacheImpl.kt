@@ -8,6 +8,11 @@ import io.realm.Realm
 class UserCacheImpl: UserCache {
     override fun putUser(name: String, password: String): Completable {
         try {
+            if (name.isEmpty())
+                throw Throwable("Empty username")
+            if (password.isEmpty())
+                throw Throwable("Empty password")
+
             val realm = Realm.getDefaultInstance()
 
             realm.executeTransaction {
