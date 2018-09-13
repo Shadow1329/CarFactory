@@ -37,7 +37,7 @@ class LoginPresenter : MvpPresenter<LoginView>() {
         override fun onError(e: Throwable) {
             viewState.onShowProgress(false)
             e.message?.let {
-                viewState.onShowError(it)
+                viewState.onShowMessage(it)
             }
         }
     }

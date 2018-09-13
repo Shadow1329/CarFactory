@@ -8,7 +8,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 @StateStrategyType(OneExecutionStateStrategy::class)
 interface RegistrationView : MvpView {
     fun onBack()
-    fun onShowError(error: String)
+    fun onShowMessage(message: String)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun onShowProgress(show: Boolean)

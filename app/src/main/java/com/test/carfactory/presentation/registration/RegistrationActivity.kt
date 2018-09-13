@@ -38,8 +38,8 @@ class RegistrationActivity : MvpAppCompatActivity(), RegistrationView {
         finish()
     }
 
-    override fun onShowError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+    override fun onShowMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     override fun onShowProgress(show: Boolean) {

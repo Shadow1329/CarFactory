@@ -10,12 +10,11 @@ class UserCacheImpl: UserCache {
         try {
             val realm = Realm.getDefaultInstance()
 
-            val userEntity: UserEntity = realm.createObject(UserEntity::class.java, name)
-            userEntity.mPassword = password
+            realm.executeTransaction {
+                val userEntity: UserEntity = it.createObject<UserEntity>(UserEntity::class.java, name)
+                userEntity.mPassword = password
+            }
 
-            realm.beginTransaction()
-            realm.copyToRealmOrUpdate(userEntity)
-            realm.commitTransaction()
             realm.close()
         } catch (e: Throwable) {
             return Completable.error(e)
@@ -27,8 +26,10 @@ class UserCacheImpl: UserCache {
         val userEntity: UserEntity
         try {
             val realm = Realm.getDefaultInstance()
+
             val realmResult: UserEntity = realm.where(UserEntity::class.java).equalTo("mName", name).findFirst()!!
             userEntity = realm.copyFromRealm(realmResult)
+
             realm.close()
         } catch (e: Throwable) {
             return Single.error(Throwable("User not found"))
@@ -40,7 +41,9 @@ class UserCacheImpl: UserCache {
         val userEntities: List<UserEntity>
         try {
             val realm = Realm.getDefaultInstance()
+
             userEntities = realm.copyFromRealm(realm.where(UserEntity::class.java).findAll())
+
             realm.close()
         } catch (e: Throwable) {
             return Single.error(e)
