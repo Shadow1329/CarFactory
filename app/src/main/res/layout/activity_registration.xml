@@ -86,7 +86,8 @@
         android:background="@color/colorProgressTransparent"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:elevation="20dp">
 
         <ProgressBar
             style="?android:attr/progressBarStyle"

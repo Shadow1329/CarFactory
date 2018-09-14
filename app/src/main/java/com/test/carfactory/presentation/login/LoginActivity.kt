@@ -8,9 +8,13 @@ import android.widget.EditText
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.test.carfactory.R
 import com.test.carfactory.presentation.main.MainActivity
 import com.test.carfactory.presentation.registration.RegistrationActivity
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.BiFunction
 
 class LoginActivity : MvpAppCompatActivity(), LoginView {
     @InjectPresenter
@@ -19,10 +23,16 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     private lateinit var mLoginUsername: EditText
     private lateinit var mLoginPassword: EditText
     private lateinit var mLoginProgress: View
+    private lateinit var mLoginDisposable: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupUI()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        destoyUI()
     }
 
     private fun setupUI() {
@@ -38,6 +48,16 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
         loginRegistrationButton.setOnClickListener {
             mLoginPresenter.onRegistrationClick()
         }
+        val loginButtonEnabled: Observable<Boolean> = Observable.combineLatest(
+                RxTextView.textChanges(mLoginUsername),
+                RxTextView.textChanges(mLoginPassword),
+                BiFunction { u, p -> u.isNotEmpty() && p.isNotEmpty() })
+        mLoginDisposable = loginButtonEnabled.subscribe { loginOkButton.isEnabled = it }
+    }
+
+    private fun destoyUI() {
+        if (!mLoginDisposable.isDisposed)
+            mLoginDisposable.dispose()
     }
 
     override fun onStartMain() {

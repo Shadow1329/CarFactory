@@ -4,9 +4,11 @@ import com.test.carfactory.data.model.UserEntity
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.realm.Realm
+import java.util.concurrent.TimeUnit
 
 class UserCacheImpl: UserCache {
     override fun putUser(name: String, password: String): Completable {
+        val result = Completable.timer(2L, TimeUnit.SECONDS)
         try {
             if (name.isEmpty())
                 throw Throwable("Empty username")
@@ -22,12 +24,13 @@ class UserCacheImpl: UserCache {
 
             realm.close()
         } catch (e: Throwable) {
-            return Completable.error(e)
+            return result.doOnComplete { throw e }
         }
-        return Completable.complete()
+        return result
     }
 
     override fun getUserByName(name: String): Single<UserEntity> {
+        val result = Single.timer(2L, TimeUnit.SECONDS)
         val userEntity: UserEntity
         try {
             val realm = Realm.getDefaultInstance()
@@ -37,9 +40,9 @@ class UserCacheImpl: UserCache {
 
             realm.close()
         } catch (e: Throwable) {
-            return Single.error(Throwable("User not found"))
+            return result.doOnSuccess { throw Throwable("User not found") }.cast(UserEntity::class.java)
         }
-        return Single.just(userEntity)
+        return result.map { userEntity }
     }
 
     override fun getAllUsers(): Single<List<UserEntity>> {
