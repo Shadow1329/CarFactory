@@ -7,13 +7,17 @@ import android.widget.EditText
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.test.carfactory.CarFactoryApplication
 import com.test.carfactory.R
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
+import javax.inject.Inject
 
 class RegistrationActivity : MvpAppCompatActivity(), RegistrationView {
+    @Inject
     @InjectPresenter
     lateinit var mRegistrationPresenter: RegistrationPresenter
 
@@ -22,16 +26,20 @@ class RegistrationActivity : MvpAppCompatActivity(), RegistrationView {
     private lateinit var mRegistrationProgress: View
     private lateinit var mLoginDisposable: Disposable
 
+    @ProvidePresenter
+    fun providePresenter(): RegistrationPresenter {
+        return mRegistrationPresenter
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as CarFactoryApplication).getApplicationComponent().inject(this)
         super.onCreate(savedInstanceState)
         setupUI()
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         destoyUI()
-
     }
 
     private fun setupUI() {

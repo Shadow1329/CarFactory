@@ -1,19 +1,24 @@
 package com.test.carfactory
 
 import android.app.Application
-import android.content.Context
-import io.realm.Realm
+import com.test.carfactory.internal.di.*
 
 class CarFactoryApplication : Application() {
-    private lateinit var mContext: Context
+    private lateinit var mApplicationComponent: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
-        mContext = getApplicationContext()
-        Realm.init(mContext)
+
+        mApplicationComponent = DaggerApplicationComponent
+                .builder()
+                .applicationModule(ApplicationModule(this))
+                .realmModule(RealmModule(this))
+                .loginModule(LoginModule())
+                .registrationModule(RegistrationModule())
+                .build()
     }
 
-    fun getContext(): Context {
-        return mContext
+    fun getApplicationComponent(): ApplicationComponent {
+        return mApplicationComponent
     }
 }

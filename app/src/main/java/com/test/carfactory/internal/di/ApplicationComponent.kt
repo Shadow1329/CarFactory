@@ -1,0 +1,13 @@
+package com.test.carfactory.internal.di
+
+import com.test.carfactory.presentation.login.LoginActivity
+import com.test.carfactory.presentation.registration.RegistrationActivity
+import dagger.Component
+import javax.inject.Singleton
+
+@Singleton
+@Component(modules = [(ApplicationModule::class), (RealmModule::class), (LoginModule::class), (RegistrationModule::class)])
+interface ApplicationComponent {
+    fun inject(activity: LoginActivity)
+    fun inject(activity: RegistrationActivity)
+}

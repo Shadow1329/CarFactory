@@ -8,15 +8,19 @@ import android.widget.EditText
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.test.carfactory.CarFactoryApplication
 import com.test.carfactory.R
 import com.test.carfactory.presentation.main.MainActivity
 import com.test.carfactory.presentation.registration.RegistrationActivity
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
+import javax.inject.Inject
 
 class LoginActivity : MvpAppCompatActivity(), LoginView {
+    @Inject
     @InjectPresenter
     lateinit var mLoginPresenter: LoginPresenter
 
@@ -25,7 +29,13 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     private lateinit var mLoginProgress: View
     private lateinit var mLoginDisposable: Disposable
 
+    @ProvidePresenter
+    fun providePresenter(): LoginPresenter {
+        return mLoginPresenter
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as CarFactoryApplication).getApplicationComponent().inject(this)
         super.onCreate(savedInstanceState)
         setupUI()
     }
