@@ -7,5 +7,5 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface MainView : MvpView {
     fun onOpenFactory()
-    fun onOpenSettings()
+    fun onOpenCars()
 }

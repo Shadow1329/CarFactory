@@ -9,7 +9,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.test.carfactory.CarFactoryApplication
+import com.test.carfactory.internal.CarFactoryApplication
 import com.test.carfactory.R
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable

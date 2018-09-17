@@ -11,8 +11,8 @@ class MainPresenter : MvpPresenter<MainView>() {
             R.id.nav_factory -> {
                 viewState.onOpenFactory()
             }
-            R.id.nav_settings -> {
-                viewState.onOpenSettings()
+            R.id.nav_cars -> {
+                viewState.onOpenCars()
             }
         }
     }

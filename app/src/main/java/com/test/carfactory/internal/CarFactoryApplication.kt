@@ -1,4 +1,4 @@
-package com.test.carfactory
+package com.test.carfactory.internal
 
 import android.app.Application
 import com.test.carfactory.internal.di.*
@@ -15,6 +15,7 @@ class CarFactoryApplication : Application() {
                 .realmModule(RealmModule(this))
                 .loginModule(LoginModule())
                 .registrationModule(RegistrationModule())
+                .carsModule(CarsModule())
                 .build()
     }
 

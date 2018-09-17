@@ -7,7 +7,7 @@ import com.test.carfactory.domain.repository.UserRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class UserDataRepository(userDataStoreFactory: UserDataStoreFactory, userMapper: UserMapper): UserRepository {
+class UserDataRepository(userDataStoreFactory: UserDataStoreFactory, userMapper: UserMapper) : UserRepository {
     private val mUserDataStoreFactory = userDataStoreFactory
     private val mUserMapper = userMapper
 
