@@ -39,7 +39,7 @@ class RegistrationActivity : MvpAppCompatActivity(), RegistrationView {
 
     override fun onDestroy() {
         super.onDestroy()
-        destoyUI()
+        destroyUI()
     }
 
     private fun setupUI() {
@@ -58,12 +58,12 @@ class RegistrationActivity : MvpAppCompatActivity(), RegistrationView {
         mLoginDisposable = registrationButtonEnabled.subscribe { registrationCreateButton.isEnabled = it }
     }
 
-    private fun destoyUI() {
+    private fun destroyUI() {
         if (!mLoginDisposable.isDisposed)
             mLoginDisposable.dispose()
     }
 
-    override fun onBack() {
+    override fun onFinish() {
         finish()
     }
 

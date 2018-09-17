@@ -10,5 +10,4 @@ class CarLocalDataStore(carCache: CarCache): CarDataStore {
     override fun getCars(): Single<List<CarEntity>> {
         return mCarCache.getCars()
     }
-
 }

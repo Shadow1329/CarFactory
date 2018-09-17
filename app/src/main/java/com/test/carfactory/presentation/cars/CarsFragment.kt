@@ -36,7 +36,6 @@ class CarsFragment : MvpAppCompatFragment(), CarsView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         val rootView = inflater.inflate(R.layout.fragment_cars, container, false)
 
         mRecyclerView = rootView.findViewById(R.id.carsRecyclerView)

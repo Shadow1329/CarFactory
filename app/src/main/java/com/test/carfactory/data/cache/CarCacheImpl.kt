@@ -26,12 +26,12 @@ class CarCacheImpl : CarCache {
     override fun putCars(carEntities: List<CarEntity>) {
         try {
             val realm = Realm.getDefaultInstance()
-            realm.beginTransaction();
-            realm.copyToRealmOrUpdate(carEntities);
-            realm.commitTransaction();
+            realm.beginTransaction()
+            realm.copyToRealmOrUpdate(carEntities)
+            realm.commitTransaction()
             realm.close()
         } catch (e: Throwable) {
-
+            // TODO handle exception
         }
     }
 

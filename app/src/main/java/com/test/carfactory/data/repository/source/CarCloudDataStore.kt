@@ -11,7 +11,7 @@ class CarCloudDataStore(carCache: CarCache): CarDataStore {
 
         val carList = mutableListOf<CarEntity>()
         carList.add(CarEntity("Audi", "A30"))
-        carList.add(CarEntity("Mersedes", "Benz"))
+        carList.add(CarEntity("Mercedes", "Benz"))
 
         return Single.just(carList.toList()).doOnSuccess {
             mCarCache.putCars(carList)

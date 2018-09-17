@@ -23,7 +23,7 @@ class RegistrationPresenter(registration: Registration) : MvpPresenter<Registrat
         override fun onComplete() {
             viewState.onShowProgress(false)
             viewState.onShowMessage("Successfully created")
-            viewState.onBack()
+            viewState.onFinish()
         }
 
         override fun onError(e: Throwable) {

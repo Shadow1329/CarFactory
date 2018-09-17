@@ -22,18 +22,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, NavigationView.OnNavigati
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        val navigationView: NavigationView = findViewById(R.id.navigation_view)
-        navigationView.setNavigationItemSelectedListener(this)
-
-        mDrawer = findViewById(R.id.drawer_layout)
-        val toggle = ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        mDrawer.addDrawerListener(toggle)
-        toggle.syncState()
+        setupUI()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -50,6 +39,21 @@ class MainActivity : MvpAppCompatActivity(), MainView, NavigationView.OnNavigati
         mMainPresenter.onNavigationItemClick(menuItem.itemId)
         mDrawer.closeDrawers()
         return true
+    }
+
+    private fun setupUI() {
+        setContentView(R.layout.activity_main)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        val navigationView: NavigationView = findViewById(R.id.navigation_view)
+        navigationView.setNavigationItemSelectedListener(this)
+
+        mDrawer = findViewById(R.id.drawer_layout)
+        val toggle = ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        mDrawer.addDrawerListener(toggle)
+        toggle.syncState()
     }
 
     override fun onOpenFactory() {

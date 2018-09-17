@@ -42,7 +42,7 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
 
     override fun onDestroy() {
         super.onDestroy()
-        destoyUI()
+        destroyUI()
     }
 
     private fun setupUI() {
@@ -65,7 +65,7 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
         mLoginDisposable = loginButtonEnabled.subscribe { loginOkButton.isEnabled = it }
     }
 
-    private fun destoyUI() {
+    private fun destroyUI() {
         if (!mLoginDisposable.isDisposed)
             mLoginDisposable.dispose()
     }

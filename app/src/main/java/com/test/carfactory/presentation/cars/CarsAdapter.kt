@@ -12,7 +12,7 @@ class CarsAdapter(cars: List<Car>) : RecyclerView.Adapter<CarsAdapter.CarsViewHo
     private val mCarsList = cars
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarsViewHolder {
-        val v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_car, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_car, parent, false)
         return CarsViewHolder(v)
     }
 
@@ -21,7 +21,7 @@ class CarsAdapter(cars: List<Car>) : RecyclerView.Adapter<CarsAdapter.CarsViewHo
     }
 
     override fun onBindViewHolder(holder: CarsViewHolder, position: Int) {
-        holder.setItem(mCarsList.get(position))
+        holder.setItem(mCarsList[position])
     }
 
     class CarsViewHolder (view: View) : RecyclerView.ViewHolder(view) {
