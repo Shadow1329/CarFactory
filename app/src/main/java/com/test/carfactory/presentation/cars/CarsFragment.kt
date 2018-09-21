@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
@@ -41,6 +42,7 @@ class CarsFragment : MvpAppCompatFragment(), CarsView {
         mRecyclerView = rootView.findViewById(R.id.carsRecyclerView)
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
+        mRecyclerView.layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.cars_list_animaton)
 
         mCarsProgress = rootView.findViewById(R.id.carsProgress)
 
@@ -57,6 +59,7 @@ class CarsFragment : MvpAppCompatFragment(), CarsView {
     override fun onShowCars(cars: List<Car>) {
         val carsAdapter = CarsAdapter(cars)
         mRecyclerView.adapter = carsAdapter
+        mRecyclerView.scheduleLayoutAnimation()
     }
 
     override fun onShowMessage(message: String) {
