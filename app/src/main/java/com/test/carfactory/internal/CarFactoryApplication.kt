@@ -13,6 +13,7 @@ class CarFactoryApplication : Application() {
                 .builder()
                 .applicationModule(ApplicationModule(this))
                 .realmModule(RealmModule(this))
+                .restModule(RestModule())
                 .loginModule(LoginModule())
                 .registrationModule(RegistrationModule())
                 .carsModule(CarsModule())

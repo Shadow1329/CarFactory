@@ -1,14 +1,10 @@
 package com.test.carfactory
 
 import com.test.carfactory.domain.interactor.LoginCheck
-import com.test.carfactory.domain.model.User
-import com.test.carfactory.domain.repository.UserRepository
 import com.test.carfactory.presentation.login.LoginPresenter
 import com.test.carfactory.presentation.login.LoginView
-import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 
 class LoginPresenterTest {
@@ -20,14 +16,17 @@ class LoginPresenterTest {
 
     @Before
     fun setup() {
-        val repo = mock(UserRepository::class.java)
-        val loginCheck = LoginCheck(repo)
-
-        Mockito.`when`(repo.getUserByName(mUsername)).thenReturn(Single.just(User(mUsername, mPassword)))
+        val loginCheck = mock(LoginCheck::class.java)
 
         mPresenter = LoginPresenter(loginCheck)
         mView = mock(LoginView::class.java)
         mPresenter.attachView(mView)
+    }
+
+    @Test
+    fun testLoginClick() {
+        mPresenter.onLoginClick(mUsername, mPassword)
+        verify(mView, times(1)).onShowProgress(true)
     }
 
     @Test

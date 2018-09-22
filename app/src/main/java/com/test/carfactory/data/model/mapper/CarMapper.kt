@@ -5,7 +5,7 @@ import com.test.carfactory.domain.model.Car
 
 class CarMapper {
     fun transform(carEntity: CarEntity): Car {
-        return Car(carEntity.mName, carEntity.mDescription)
+        return Car(carEntity.mMakeName, carEntity.mVehicleTypeName)
     }
 
     fun transformList(carEntities: List<CarEntity>): List<Car>{

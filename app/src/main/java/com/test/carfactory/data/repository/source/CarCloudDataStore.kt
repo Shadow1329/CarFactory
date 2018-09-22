@@ -2,19 +2,18 @@ package com.test.carfactory.data.repository.source
 
 import com.test.carfactory.data.cache.CarCache
 import com.test.carfactory.data.model.CarEntity
+import com.test.carfactory.data.net.RestAPI
 import io.reactivex.Single
 
-class CarCloudDataStore(carCache: CarCache): CarDataStore {
+class CarCloudDataStore(restApi: RestAPI, carCache: CarCache): CarDataStore {
+    private val mRestApi = restApi
     private val mCarCache = carCache
 
     override fun getCars(): Single<List<CarEntity>> {
-
-        val carList = mutableListOf<CarEntity>()
-        carList.add(CarEntity("Audi", "A30"))
-        carList.add(CarEntity("Mercedes", "Benz"))
-
-        return Single.just(carList.toList()).doOnSuccess {
-            mCarCache.putCars(carList)
+        return mRestApi.getCars().map {
+            it.mResults
+        }.doOnSuccess {
+            mCarCache.putCars(it)
         }
     }
 }
