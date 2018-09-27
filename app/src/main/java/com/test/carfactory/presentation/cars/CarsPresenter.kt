@@ -11,13 +11,17 @@ class CarsPresenter(carsListGet: CarsListGet) : MvpPresenter<CarsView>() {
     private val mCarsListGet = carsListGet
 
     init {
-        viewState.onShowProgress(true)
-        mCarsListGet.execute(CarsGetObserver(), null)
+        onLoadData()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         mCarsListGet.dispose()
+    }
+
+    fun onLoadData() {
+        viewState.onShowProgress(true)
+        mCarsListGet.execute(CarsGetObserver(), null)
     }
 
     private inner class CarsGetObserver: DisposableSingleObserver<List<Car>>() {

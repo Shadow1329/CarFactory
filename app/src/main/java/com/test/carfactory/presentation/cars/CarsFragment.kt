@@ -1,6 +1,7 @@
 package com.test.carfactory.presentation.cars
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,6 +10,9 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
 import android.widget.Toast
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -23,8 +27,16 @@ class CarsFragment : MvpAppCompatFragment(), CarsView {
     @InjectPresenter
     lateinit var mCarsPresenter: CarsPresenter
 
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mCarsProgress: ProgressBar
+    @BindView(R.id.carsRecyclerView)
+    lateinit var mRecyclerView: RecyclerView
+
+    @BindView(R.id.carsProgress)
+    lateinit var mCarsProgress: ProgressBar
+
+    @BindView(R.id.carsSwipeRefresh)
+    lateinit var mCarsSwipeRefresh: SwipeRefreshLayout
+
+    private lateinit var mUnbinder: Unbinder
 
     @ProvidePresenter
     fun providePresenter(): CarsPresenter {
@@ -37,16 +49,23 @@ class CarsFragment : MvpAppCompatFragment(), CarsView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_cars, container, false)
+        val view = inflater.inflate(R.layout.fragment_cars, container, false)
+        mUnbinder = ButterKnife.bind(this, view)
 
-        mRecyclerView = rootView.findViewById(R.id.carsRecyclerView)
+        mCarsSwipeRefresh.setOnRefreshListener {
+            mCarsPresenter.onLoadData()
+        }
+
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
         mRecyclerView.layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.cars_list_animaton)
 
-        mCarsProgress = rootView.findViewById(R.id.carsProgress)
+        return view
+    }
 
-        return rootView
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mUnbinder.unbind()
     }
 
     override fun onShowProgress(show: Boolean) {
@@ -54,6 +73,7 @@ class CarsFragment : MvpAppCompatFragment(), CarsView {
             true -> View.VISIBLE
             false -> View.GONE
         }
+        mCarsSwipeRefresh.isRefreshing = false
     }
 
     override fun onShowCars(cars: List<Car>) {
